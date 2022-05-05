@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app';
-import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import AuthRoute from './components/RouteAuth';
@@ -10,10 +9,6 @@ import HomePage from './pages/Home';
 initializeApp(FirebaseConfig);
 
 const App = () => {
-  const [idToken, setIdToken] = useState(String);
-  const saveToken = (token: string) => {
-    setIdToken(token);
-  };
   return (
     <BrowserRouter>
       <Routes>
@@ -21,11 +16,11 @@ const App = () => {
           path="/"
           element={
             <AuthRoute>
-              <HomePage token={idToken} />
+              <HomePage />
             </AuthRoute>
           }
         />
-        <Route path="/login" element={<GoogleLoginPage saveToken={saveToken} />} />
+        <Route path="/login" element={<GoogleLoginPage />} />
       </Routes>
     </BrowserRouter>
   );

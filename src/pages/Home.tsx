@@ -5,12 +5,10 @@ interface HomeProps {
   token: string;
 }
 
-const Home = (props: HomeProps) => {
+const Home = () => {
   const auth = getAuth();
   return auth.currentUser ? (
     <div>
-      <p>Home Page</p>
-      <p>idToken: {props.token}</p>
       <button onClick={() => signOut(auth)}>Sign out</button>
     </div>
   ) : (

@@ -2,11 +2,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface GoogleLoginProps {
-  saveToken: (token: string) => void;
-}
-
-const GoogleLogin = (props: GoogleLoginProps) => {
+const GoogleLogin = () => {
   const auth = getAuth();
 
   const navigate = useNavigate();
@@ -19,9 +15,7 @@ const GoogleLogin = (props: GoogleLoginProps) => {
         console.log(response.user.uid);
         response.user
           .getIdToken()
-          .then((token) => {
-            props.saveToken(token);
-          })
+          .then()
           .catch((error) => {
             console.log(error);
           });
