@@ -2,10 +2,10 @@ import { initializeApp } from 'firebase/app';
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import AuthRoute from './components/auth/RouteAuth';
+import AuthRoute from './components/RouteAuth';
 import { FirebaseConfig } from './config/firebase';
+import GoogleLoginPage from './pages/Google';
 import HomePage from './pages/Home';
-import GoogleLoginPage from './pages/auth/Google';
 
 initializeApp(FirebaseConfig);
 
