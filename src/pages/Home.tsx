@@ -16,7 +16,7 @@ const Home = () => {
     <div>
       <button onClick={() => signOut(auth)}>Sign out</button>
       {expiries?.map((expiry) => (
-        <div>
+        <div key={expiry.name}>
           <div>{expiry.name}</div>
           <div>{expiry.expiry.toMillis()}</div>
         </div>
