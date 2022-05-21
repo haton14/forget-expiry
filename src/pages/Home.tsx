@@ -2,7 +2,8 @@ import { getAuth, signOut } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { fetchAll, Expiry } from '../repositories/Expiries';
+import Input from '../components/Input';
+import { fetchAll, create, Expiry } from '../repositories/Expiries';
 
 const Home = () => {
   const [expiries, setExpiries] = useState<Expiry[]>();
@@ -21,6 +22,7 @@ const Home = () => {
           <div>{expiry.expiry.toMillis()}</div>
         </div>
       ))}
+      <Input createHandler={create} />
     </div>
   ) : (
     <Navigate to="/login" />
