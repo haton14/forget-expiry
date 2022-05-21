@@ -1,6 +1,7 @@
 import { getFirestore, collection, getDocs, addDoc, FirestoreDataConverter, DocumentData, QueryDocumentSnapshot, SnapshotOptions, Timestamp } from 'firebase/firestore';
 
 export interface Expiry {
+  id: string;
   name: string;
   expiry: Timestamp;
 }
@@ -23,6 +24,7 @@ const expiryConverter: FirestoreDataConverter<Expiry> = {
   fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions): Expiry {
     const data = snapshot.data(options);
     return {
+      id: snapshot.id,
       name: data['name'],
       expiry: data['expiry'],
     };

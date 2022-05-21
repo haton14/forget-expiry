@@ -13,13 +13,20 @@ const Home = () => {
     fetchAll().then(setExpiries);
   }, []);
 
+  const formatDate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}/${month}/${day}`;
+  };
+
   return auth.currentUser ? (
     <div>
       <button onClick={() => signOut(auth)}>Sign out</button>
       {expiries?.map((expiry) => (
-        <div key={expiry.name}>
+        <div key={expiry.id}>
           <div>{expiry.name}</div>
-          <div>{expiry.expiry.toMillis()}</div>
+          <div>{formatDate(expiry.expiry.toDate())}</div>
         </div>
       ))}
       <Input createHandler={create} />
