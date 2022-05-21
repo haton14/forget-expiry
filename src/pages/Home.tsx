@@ -10,8 +10,21 @@ const Home = () => {
   const auth = getAuth();
 
   useEffect(() => {
-    fetchAll().then(setExpiries);
+    fetchAll().then(setSortExpiries);
   }, []);
+
+  const setSortExpiries = (expiries: Expiry[]) => {
+    const expiriesCopy = expiries?.slice().sort((a, b) => a.expiry.toMillis() - b.expiry.toMillis());
+    setExpiries(expiriesCopy);
+  };
+
+  const addExpiry = (expiry: Expiry) => {
+    const expiriesCopy = expiries?.slice();
+    expiriesCopy?.push(expiry);
+    if (expiriesCopy) {
+      setSortExpiries(expiriesCopy);
+    }
+  };
 
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
@@ -29,7 +42,7 @@ const Home = () => {
           <div>{formatDate(expiry.expiry.toDate())}</div>
         </div>
       ))}
-      <Input createHandler={create} />
+      <Input createHandler={create} addExpiry={addExpiry} />
     </div>
   ) : (
     <Navigate to="/login" />

@@ -5,6 +5,7 @@ import { Expiry, newExpiry } from '../repositories/Expiries';
 
 interface InputProps {
   createHandler: (expiry: Expiry) => Promise<void>;
+  addExpiry: (expiry: Expiry) => void;
 }
 
 const Input = (props: InputProps) => {
@@ -16,6 +17,7 @@ const Input = (props: InputProps) => {
     const data = newExpiry(name, timestamp(expiry));
     setName('');
     setExpiry('');
+    props.addExpiry(data);
     await props.createHandler(data);
   };
 
