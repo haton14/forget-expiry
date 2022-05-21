@@ -14,6 +14,8 @@ const Input = (props: InputProps) => {
 
   const add = async () => {
     const data = newExpiry(name, timestamp(expiry));
+    setName('');
+    setExpiry('');
     await props.createHandler(data);
   };
 
