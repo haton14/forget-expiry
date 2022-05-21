@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import Input from '../components/Input';
-import { fetchAll, create, Expiry } from '../repositories/Expiries';
+import { fetchAll, create, deleteByID, Expiry } from '../repositories/Expiries';
 
 const Home = () => {
   const [expiries, setExpiries] = useState<Expiry[]>();
@@ -26,6 +26,15 @@ const Home = () => {
     }
   };
 
+  const deleteRecord = async (id: string, index: number) => {
+    await deleteByID(id);
+    if (expiries) {
+      const expiriesCopy = expiries.slice();
+      expiriesCopy.splice(index, 1);
+      setSortExpiries(expiriesCopy);
+    }
+  };
+
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -36,10 +45,11 @@ const Home = () => {
   return auth.currentUser ? (
     <div>
       <button onClick={() => signOut(auth)}>Sign out</button>
-      {expiries?.map((expiry) => (
+      {expiries?.map((expiry, index) => (
         <div key={expiry.id}>
           <div>{expiry.name}</div>
           <div>{formatDate(expiry.expiry.toDate())}</div>
+          <button onClick={() => deleteRecord(expiry.id, index)}>delete</button>
         </div>
       ))}
       <Input createHandler={create} addExpiry={addExpiry} />

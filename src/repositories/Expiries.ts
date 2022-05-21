@@ -1,4 +1,16 @@
-import { getFirestore, collection, getDocs, addDoc, FirestoreDataConverter, DocumentData, QueryDocumentSnapshot, SnapshotOptions, Timestamp } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  addDoc,
+  FirestoreDataConverter,
+  DocumentData,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+  Timestamp,
+} from 'firebase/firestore';
 
 export interface Expiry {
   id: string;
@@ -42,4 +54,10 @@ export const create = async (expiry: Expiry) => {
   const db = getFirestore();
   const collRef = collection(db, 'expiries').withConverter(expiryConverter);
   await addDoc(collRef, expiry);
+};
+
+export const deleteByID = async (id: string) => {
+  const db = getFirestore();
+  const docRef = doc(db, 'expiries', id);
+  await deleteDoc(docRef);
 };
